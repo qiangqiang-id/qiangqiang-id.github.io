@@ -43,7 +43,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="" class="js-avatar">
+			<img src="/qiang.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/"></a></h1>
@@ -101,7 +101,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="" class="js-avatar">
+				<img src="/qiang.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author"></h1>
@@ -152,29 +152,47 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-my-blog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-js继承" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/14/my-blog/">my-blog</a>
+      <a class="article-title" href="/2020/12/16/js%E7%BB%A7%E6%89%BF/">js继承</a>
     </h1>
   
 
         
-        <a href="/2020/12/14/my-blog/" class="archive-article-date">
-  	<time datetime="2020-12-14T01:42:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-14</time>
+        <a href="/2020/12/16/js%E7%BB%A7%E6%89%BF/" class="archive-article-date">
+  	<time datetime="2020-12-16T12:27:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-16</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="第一段"><a href="#第一段" class="headerlink" title="第一段"></a>第一段</h3><p>内容</p>
-<h3 id="第二段"><a href="#第二段" class="headerlink" title="第二段"></a>第二段</h3><p>内容</p>
-<h3 id="第三段"><a href="#第三段" class="headerlink" title="第三段"></a>第三段</h3><p>内容</p>
+        <h3 id="1、原型链继承"><a href="#1、原型链继承" class="headerlink" title="1、原型链继承"></a>1、原型链继承</h3><p>每一个构造函数都会有一个原型对象，构造函数的实例是可以直接访问到 原型的对象上面的方法的    </p>
+<p>所以让子构造函数等于父构造函数的实例，子构造函数就可以继承到父构造函数的属性和方法了</p>
+<p><strong>注意</strong>！！！不能让Son.prototype = Father.prototype   这样如果在子构造函数的原型上面的添加方法，也会影响到父构造函数的原型</p>
+<p>优点：简单，容易实现，父类上面增加的方法和属性  子类都可以访问</p>
+<p>缺点：创建子类的时候无法传参,不能多继承</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Father</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name</span><br><span class="line">    <span class="built_in">this</span>.sleep = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.name + <span class="string">&#x27;正在睡觉&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">Father.prototype.eat = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="built_in">this</span>.name + <span class="string">&#x27;正在吃饭&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Son</span> = <span class="title">new</span> <span class="title">Father</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">// 当子构造函数等于父的原型对象的是的，<span class="title">Son</span>的<span class="title">constructor</span>指向的是<span class="title">Father</span>  需要手动指回到<span class="title">Son</span></span></span><br><span class="line"><span class="function"><span class="title">Son</span>.<span class="title">prototype</span>.<span class="title">constructor</span> = <span class="title">Son</span></span></span><br><span class="line"><span class="function"><span class="title">let</span> <span class="title">xiaoming</span> = <span class="title">new</span> <span class="title">Son</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"><span class="title">xiaoming</span> = </span>&#123;</span><br><span class="line">    __proto__ =&gt;Son.prototype&#123;</span><br><span class="line">    name</span><br><span class="line">    sleep()</span><br><span class="line">    <span class="title">constructor</span>	=&gt; <span class="title">Son</span>(<span class="params"></span>)</span><br><span class="line">	<span class="title">__proto__</span> =&gt;<span class="title">Father</span>.<span class="title">prototype</span> &#123;</span><br><span class="line">        eat()</span><br><span class="line">        <span class="title">constructor</span> =&gt; <span class="title">Father</span>(<span class="params"></span>)</span><br><span class="line">        <span class="title">__proto__</span> =&gt;<span class="title">Object</span>.<span class="title">prototype</span> &#123;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">xiaoming.name = <span class="string">&#x27;小明&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log (xiaoming.name) <span class="comment">// 小明</span></span><br><span class="line"><span class="built_in">console</span>.log (xiaoming.sleep())  <span class="comment">// 小明正在睡觉</span></span><br><span class="line"><span class="built_in">console</span>.log (xiaoming.eat())  <span class="comment">// 小明正在吃饭</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2、借调方式继承-cell"><a href="#2、借调方式继承-cell" class="headerlink" title="2、借调方式继承 cell()"></a>2、借调方式继承 cell()</h3><p>优点：可以 传参   ， 可以实现多继承   </p>
+<p>缺点：无法继承原型上面的方法，只能继承父类上面的属性和方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Father</span> (<span class="params">name,age</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">this</span>.name = name </span><br><span class="line">    <span class="built_in">this</span>.age = age</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Son</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">new</span> Father.call( <span class="built_in">this</span>,<span class="string">&#x27;小明&#x27;</span>, <span class="number">19</span> )</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> student = <span class="keyword">new</span> Son()</span><br><span class="line"><span class="built_in">console</span>.log(student.name) <span class="comment">// 小明</span></span><br><span class="line"><span class="built_in">console</span>.log(student.age) <span class="comment">// 19</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、原型链和借调方法组合"><a href="#3、原型链和借调方法组合" class="headerlink" title="3、原型链和借调方法组合"></a>3、原型链和借调方法组合</h3><p>这个方法就是将上面的两个方法结合使用，互补缺点，看似比较完美，但是实际会浪费内存</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Father</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name</span><br><span class="line">    <span class="built_in">this</span>.sleep</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Son</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">new</span> Father.call(<span class="built_in">this</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    Son.prototype = <span class="keyword">new</span> Father()</span><br><span class="line">    <span class="keyword">var</span> x = <span class="keyword">new</span> son()</span><br><span class="line">    x = &#123;</span><br><span class="line">      __proto__ =&gt;Father的实例&#123; name sleep __proto__  &#125; </span><br><span class="line">      name</span><br><span class="line">      sleep</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 这里的name属性和sleep方法重复了，导致消耗内存</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4、原型式继承"><a href="#4、原型式继承" class="headerlink" title="4、原型式继承"></a>4、原型式继承</h3><p>在对象的原型上添加一个方法，所有的实例就都可以使用该方法了</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.eat = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;今天你吃饭了嘛&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> h = <span class="keyword">new</span> Fn()</span><br><span class="line">h.eat() <span class="comment">// 今天你吃饭了嘛</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5、寄生式继承"><a href="#5、寄生式继承" class="headerlink" title="5、寄生式继承"></a>5、寄生式继承</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这里就是创建的一个新的构造函数，赋值father的prototype属性</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">object</span> (<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">var</span> newObj = <span class="keyword">new</span> F()</span><br><span class="line">    newObj.prototype = obj.prototype</span><br><span class="line">    <span class="keyword">return</span> newObj</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 这里是将父亲的prototype赋值给son的prototype ，并将constructor 指回son函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jichen</span>(<span class="params">father,son</span>) </span>&#123;</span><br><span class="line">    son.prototype = object(father.prototype)</span><br><span class="line">    son.prototype.constructor = son</span><br><span class="line">    <span class="keyword">return</span> son</span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="6、寄生式继承和借调方法组合"><a href="#6、寄生式继承和借调方法组合" class="headerlink" title="6、寄生式继承和借调方法组合"></a>6、寄生式继承和借调方法组合</h3><h3 id="7、es6中的class-gt-extends关键字"><a href="#7、es6中的class-gt-extends关键字" class="headerlink" title="7、es6中的class  =&gt;  extends关键字"></a>7、es6中的class  =&gt;  extends关键字</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Father</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">name,age</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.name</span><br><span class="line">        <span class="built_in">this</span>.age</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Son</span> <span class="keyword">extends</span> <span class="title">Father</span></span>&#123;</span><br><span class="line">    <span class="title">constructor</span> &#123;sex&#125; &#123;</span><br><span class="line">        <span class="comment">// super 必须用到this 的前面 </span></span><br><span class="line">        <span class="built_in">super</span>(<span class="built_in">this</span>,<span class="string">&#x27;zhangsan&#x27;</span>,<span class="number">18</span>)  <span class="comment">// 等同于 Father.constructor(&#x27;zhangsan&#x27;,18)</span></span><br><span class="line">        <span class="built_in">this</span>.sex</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       
 
@@ -188,7 +206,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">blog</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">js继承</a>
         		</li>
       		
 		</ul>
@@ -198,7 +216,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/12/14/my-blog/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/12/16/js%E7%BB%A7%E6%89%BF/">展开全文 >></a>
         </p>
       
 
@@ -313,7 +331,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 John Doe
+    		&copy; 2021 John Doe
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -396,7 +414,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">blog</a>
+                <a href="javascript:void(0)" class="js-tag color5">js继承</a>
               </li>
             
             <div class="clearfix"></div>
